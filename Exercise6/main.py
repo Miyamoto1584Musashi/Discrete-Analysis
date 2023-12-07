@@ -1,26 +1,24 @@
 
 
 def nextk_permutations(used, n, k):
+    """ """
+
     unused = [i for i in range(1, n + 1) if not(i in used)]
     index = len(used) - 1
-    while index >= 0 and k != 0:
+
+    while (index >= 0) and (k != 0):
         if used[index] > max(unused + [used[j] for j in range(index + 1, len(used))]):
             index -= 1
         else:
-            element = used[index]
-            used[index] = min([j for j in unused if j > used[index]] + [used[j] for j in range(index + 1, len(used)) if used[j] > used[index]])
-            if used[index] in unused:
-                unused.remove(used[index])
-                unused.append(element)
+            used[index] = min([unused[j] for j in range(len(unused)) if unused[j] > used[index]] + [used[j] for j in range(index + 1, len(used)) if used[j] > used[index]])
+            unused = [i for i in range(1, n + 1) if not (i in used)]
             for i in range(index + 1, len(used)):
-                element = used[i]
-                used[i] = min(unused)
-                if used[i] in unused:
-                    unused.remove(used[i])
-                    unused.append(element)
+                used[i] = min(unused[::] + [used[j] for j in range(i + 1, len(used))])
+                unused = [j for j in range(1, n + 1) if not (j in used)]
+
+            print(used, unused)
             k -= 1
             index = len(used) - 1
-            print(used, unused)
 
 
 
