@@ -1,7 +1,7 @@
 
 
-def nextk_permutations(used, n, k):
-    """ """
+def next_placements(used, n, k):
+    """Output k of the following placements"""
 
     unused = [i for i in range(1, n + 1) if not(i in used)]
     index = len(used) - 1
@@ -13,10 +13,10 @@ def nextk_permutations(used, n, k):
             used[index] = min([unused[j] for j in range(len(unused)) if unused[j] > used[index]] + [used[j] for j in range(index + 1, len(used)) if used[j] > used[index]])
             unused = [i for i in range(1, n + 1) if not (i in used)]
             for i in range(index + 1, len(used)):
-                used[i] = min(unused[::] + [used[j] for j in range(i + 1, len(used))])
+                used[i] = min(unused + [used[j] for j in range(i + 1, len(used))])
                 unused = [j for j in range(1, n + 1) if not (j in used)]
 
-            print(used, unused)
+            print(used)
             k -= 1
             index = len(used) - 1
 
@@ -25,10 +25,10 @@ def nextk_permutations(used, n, k):
 
 
 if __name__ == '__main__':
-    n = int(input())
-    k = int(input())
-    curr = [int(i) for i in input().split()]
-    nextk_permutations(curr, n, k)
+    n = int(input("Enter n: "))
+    k = int(input("Entet k: "))
+    currentPlacements= [int(i) for i in input("Output k of the following placements: ").split()]
+    next_placements(currentPlacements, n, k)
 
 
 
